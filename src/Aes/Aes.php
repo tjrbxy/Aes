@@ -10,10 +10,10 @@ namespace Aes;
 class Aes
 {
     /**
-     * @param array $data
-     * @param array $field
+     * 加密
+     * @param string $String
      * @param string $key
-     * @return array|string
+     * @return string
      */
     public function encrypt($String='',$key=''){
 
@@ -32,17 +32,19 @@ class Aes
 
 
     /**
+     * 加密数组
      * @param $data
      * @param string $secretKey
      * @param array $key
+     * @return mixed
      */
     public function encryptArray($data,$secretKey='',$key=[]){
         if(empty($key)) return $data;
         foreach ($data as $kk=>$vv){
             if(is_array($vv)){
                 foreach ($vv as $k=>$v){
-                    if(in_array($kk,$key)){
-                        $data[$kk][$k] = $this->encrypt($vv,$secretKey);
+                    if(in_array($k,$key)){
+                        $data[$kk][$k] = $this->encrypt($v,$secretKey);
                     }
                 }
             }else{
@@ -65,8 +67,8 @@ class Aes
         foreach ($data as $kk=>$vv){
             if(is_array($vv)){
                 foreach ($vv as $k=>$v){
-                    if(in_array($kk,$key)){
-                        $data[$kk][$k] = $this->decrypt($vv,$secretKey);
+                    if(in_array($k,$key)){
+                        $data[$kk][$k] = $this->decrypt($v,$secretKey);
                     }
                 }
             }else{
