@@ -1,6 +1,7 @@
 {
     "name": "abel.tang/aes",
     "description": "加密解密",
+    "license": "",
     "authors": [
         {
             "name": "abel.tang",
