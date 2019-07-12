@@ -30,4 +30,51 @@ class Aes
         return $decrypted;
     }
 
+
+    /**
+     * @param $data
+     * @param string $secretKey
+     * @param array $key
+     */
+    public function encryptArray($data,$secretKey='',$key=[]){
+        if(empty($key)) return $data;
+        foreach ($data as $kk=>$vv){
+            if(is_array($vv)){
+                foreach ($vv as $k=>$v){
+                    if(in_array($kk,$key)){
+                        $data[$kk][$k] = $this->encrypt($vv,$secretKey);
+                    }
+                }
+            }else{
+               if(in_array($kk,$key)){
+                 $data[$kk] = $this->encrypt($vv,$secretKey);
+               }
+            }
+        }
+        return $data;
+    }
+
+
+    /**
+     * @param $data
+     * @param string $secretKey
+     * @param array $key
+     */
+    public function decryptArray($data,$secretKey='',$key=[]){
+        if(empty($key)) return $data;
+        foreach ($data as $kk=>$vv){
+            if(is_array($vv)){
+                foreach ($vv as $k=>$v){
+                    if(in_array($kk,$key)){
+                        $data[$kk][$k] = $this->decrypt($vv,$secretKey);
+                    }
+                }
+            }else{
+                if(in_array($kk,$key)){
+                    $data[$kk] = $this->decrypt($vv,$secretKey);
+                }
+            }
+        }
+        return $data;
+    }
 }
