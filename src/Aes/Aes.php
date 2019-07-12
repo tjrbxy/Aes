@@ -15,20 +15,18 @@ class Aes
      * @param string $key
      * @return array|string
      */
-    public function encrypt(&$data =[],$field = [],$key=''){
-        $data = openssl_encrypt($data, 'AES-128-ECB', $key, OPENSSL_RAW_DATA);
+    public function encrypt($String='',$key=''){
 
+        $data = openssl_encrypt($String, 'AES-128-ECB', $key, OPENSSL_RAW_DATA);
         $data = strtolower(bin2hex($data));
-
         return $data;
     }
 
     /**
      * 解密
      */
-    public function decrypt(&$data =[],$field = [],$key=''){
-        $decrypted = openssl_decrypt(hex2bin($data), 'AES-128-ECB', $key, OPENSSL_RAW_DATA);
-
+    public function decrypt( $String='',$key=''){
+        $decrypted = openssl_decrypt(hex2bin($String), 'AES-128-ECB', $key, OPENSSL_RAW_DATA);
         return $decrypted;
     }
 
