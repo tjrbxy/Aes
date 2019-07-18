@@ -24,9 +24,20 @@ class Aes
 
     /**
      * 解密
+     * @param string $String
+     * @param string $key
+     * @return string
      */
     public function decrypt( $String='',$key=''){
-        $decrypted = openssl_decrypt(hex2bin($String), 'AES-128-ECB', $key, OPENSSL_RAW_DATA);
+        if(!is_string($String)) return $String;
+        $len = strlen($String);
+        if ($len % 2) {
+            return $String;
+        }else if (strspn($String, '0123456789abcdefABCDEF') != $len) {
+            return $String;
+        }
+        $String = hex2bin($String);
+        $decrypted = openssl_decrypt($String, 'AES-128-ECB', $key, OPENSSL_RAW_DATA);
         return $decrypted;
     }
 
